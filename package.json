@@ -51,5 +51,11 @@
     "yarn.lock": [
       "git rm --cached"
     ]
+  },
+  "dependencies": {
+    "nib": "^1.1.2",
+    "rupture": "^0.7.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2"
   }
 }

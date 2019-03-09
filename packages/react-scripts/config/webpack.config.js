@@ -31,6 +31,9 @@ const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
+const nib = require('nib');
+const rupture = require('rupture');
+
 // @remove-on-eject-begin
 const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
 // @remove-on-eject-end
@@ -117,6 +120,7 @@ module.exports = function(webpackEnv) {
         loader: require.resolve(preProcessor),
         options: {
           sourceMap: isEnvProduction && shouldUseSourceMap,
+          use: [nib(), rupture()],
         },
       });
     }
@@ -491,6 +495,18 @@ module.exports = function(webpackEnv) {
                   getLocalIdent: getCSSModuleLocalIdent,
                 },
                 'sass-loader'
+              ),
+            },
+
+            // Adds support for STYLUS
+            {
+              test: /\.styl$/,
+              use: getStyleLoaders(
+                {
+                  importLoaders: 2,
+                  sourceMap: isEnvProduction && shouldUseSourceMap,
+                },
+                'stylus-loader'
               ),
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.
